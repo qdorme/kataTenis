@@ -13,4 +13,14 @@ class GameTest {
         assertThat(score.getPlayer1()).isZero();
         assertThat(score.getPlayer2()).isZero();
     }
+
+    @Test
+    void shouldReturnZeroFifteenPointsWhenPlayerTwoWinsFirstPoint() {
+        Game game = new Game();
+        game.pointWonByPlayer();
+        Pair score = game.currentSetScore();
+        assertThat(score).isNotNull();
+        assertThat(score.getPlayer1()).isZero();
+        assertThat(score.getPlayer2()).isEqualTo(15);
+    }
 }
