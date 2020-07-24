@@ -1,13 +1,22 @@
 package kata.tennis;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static kata.tennis.Game.PLAYER_ONE;
+import static kata.tennis.Game.PLAYER_TWO;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class GameTest {
+    Game game;
+
+    @BeforeEach
+    void setUp() {
+        game = new Game();
+    }
+
     @Test
     void shouldReturnZeroPointsAtTheStart() {
-        Game game = new Game();
         Pair score = game.currentSetScore();
         assertThat(score).isNotNull();
         assertThat(score.getPlayer1()).isZero();
@@ -16,8 +25,7 @@ class GameTest {
 
     @Test
     void shouldReturnZeroFifteenPointsWhenPlayerTwoWinsFirstPoint() {
-        Game game = new Game();
-        game.pointWonByPlayer(2);
+        game.pointWonByPlayer(PLAYER_TWO);
         Pair score = game.currentSetScore();
         assertThat(score).isNotNull();
         assertThat(score.getPlayer1()).isZero();
@@ -26,8 +34,7 @@ class GameTest {
 
     @Test
     void shouldReturnFifteenZeroPointsWhenPlayerOneWinsFirstPoint() {
-        Game game = new Game();
-        game.pointWonByPlayer(1);
+        game.pointWonByPlayer(PLAYER_ONE);
         Pair score = game.currentSetScore();
         assertThat(score).isNotNull();
         assertThat(score.getPlayer1()).isEqualTo(15);
