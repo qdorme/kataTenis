@@ -17,10 +17,20 @@ class GameTest {
     @Test
     void shouldReturnZeroFifteenPointsWhenPlayerTwoWinsFirstPoint() {
         Game game = new Game();
-        game.pointWonByPlayer();
+        game.pointWonByPlayer(2);
         Pair score = game.currentSetScore();
         assertThat(score).isNotNull();
         assertThat(score.getPlayer1()).isZero();
         assertThat(score.getPlayer2()).isEqualTo(15);
+    }
+
+    @Test
+    void shouldReturnFifteenZeroPointsWhenPlayerOneWinsFirstPoint() {
+        Game game = new Game();
+        game.pointWonByPlayer(1);
+        Pair score = game.currentSetScore();
+        assertThat(score).isNotNull();
+        assertThat(score.getPlayer1()).isEqualTo(15);
+        assertThat(score.getPlayer2()).isZero();
     }
 }
