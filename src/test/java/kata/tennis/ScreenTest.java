@@ -25,10 +25,18 @@ class ScreenTest {
     }
 
     @Test
-    void shouldDisplay0MinusFifteenWhenOnePointIsWonByPlayerTwo() {
+    void shouldDisplay0Minus15WhenOnePointIsWonByPlayerTwo() {
         Screen screen = new Screen(out);
         Pair pair = Pair.builder().player1(ZERO).player2(FIFTEEN).build();
         screen.display(pair);
         Mockito.verify(out).println("Player One 0-15 Player Two");
+    }
+
+    @Test
+    void shouldDisplay15Minus0WhenOnePointIsWonByPlayerOne() {
+        Screen screen = new Screen(out);
+        Pair pair = Pair.builder().player1(FIFTEEN).player2(ZERO).build();
+        screen.display(pair);
+        Mockito.verify(out).println("Player One 15-0 Player Two");
     }
 }

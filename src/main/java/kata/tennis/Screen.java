@@ -10,10 +10,7 @@ public class Screen {
     }
 
     public void display(Pair pair) {
-        if(Game.FIFTEEN.equals(pair.getPlayer2()))
-            out.println("Player One 0-15 Player Two");
-        else
-            out.println("Player One 0-0 Player Two");
+        out.println(String.format("Player One %s-%s Player Two",pair.getPlayer1(),pair.getPlayer2()));
     }
 
 }
