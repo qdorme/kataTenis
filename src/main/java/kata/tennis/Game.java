@@ -64,7 +64,7 @@ public class Game {
     private String updatePoint(String pointToUpdate){
         if(DEUCE.equals(pointToUpdate))
             return ADVANTAGE;
-        if(FORTY.equals(pointToUpdate))
+        if(FORTY.equals(pointToUpdate) || ADVANTAGE.equals(pointToUpdate))
             return WIN_GAME;
         if(THIRTY.equals(pointToUpdate))
             return FORTY;

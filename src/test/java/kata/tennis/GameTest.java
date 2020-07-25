@@ -140,4 +140,25 @@ class GameTest {
         assertThat(score.getPlayer1()).isEqualTo(EMPTY);
         assertThat(score.getPlayer2()).isEqualTo(ADVANTAGE);
     }
+
+    @Test
+    void shouldReturnPlayerOneHasGameWinnerIfHeWinPointWhileHeHasAdvantage() {
+        playerWonPoints(game,PLAYER_ONE,3);
+        playerWonPoints(game,PLAYER_TWO,3);
+        playerWonPoints(game,PLAYER_ONE,2);
+        Pair score = game.currentSetScore();
+        assertThat(game.isCurrentGameInDeuce()).isTrue();
+        assertThat(score.getPlayer1()).isEqualTo(WIN_GAME);
+        assertThat(score.getPlayer2()).isEqualTo(EMPTY);
+    }
+
+    @Test
+    void shouldReturnPlayerTwoHasGameWinnerIfHeWinPointWhileHeHasAdvantage() {
+        playerWonPoints(game,PLAYER_ONE,3);
+        playerWonPoints(game,PLAYER_TWO,5);
+        Pair score = game.currentSetScore();
+        assertThat(game.isCurrentGameInDeuce()).isTrue();
+        assertThat(score.getPlayer1()).isEqualTo(EMPTY);
+        assertThat(score.getPlayer2()).isEqualTo(WIN_GAME);
+    }
 }
