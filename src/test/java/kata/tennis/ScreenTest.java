@@ -9,6 +9,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.io.PrintStream;
 
+import static kata.tennis.Game.*;
+
 @ExtendWith(MockitoExtension.class)
 class ScreenTest {
     @Mock
@@ -17,9 +19,16 @@ class ScreenTest {
     @Test
     void shouldDisplay0Minus0AtTheStartOfAGame() {
         Screen screen = new Screen(out);
-        Pair pair = Pair.builder().player1("0").player2("0").build();
+        Pair pair = Pair.builder().player1(ZERO).player2(ZERO).build();
         screen.display(pair);
         Mockito.verify(out).println("Player One 0-0 Player Two");
     }
 
+    @Test
+    void shouldDisplay0MinusFifteenWhenOnePointIsWonByPlayerTwo() {
+        Screen screen = new Screen(out);
+        Pair pair = Pair.builder().player1(ZERO).player2(FIFTEEN).build();
+        screen.display(pair);
+        Mockito.verify(out).println("Player One 0-15 Player Two");
+    }
 }
