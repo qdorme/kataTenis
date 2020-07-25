@@ -114,6 +114,11 @@ class GameTest {
     void shouldActivateDeuceRuleIfBothPlayersReach40Points() {
         playerWonPoints(game,PLAYER_ONE,3);
         playerWonPoints(game,PLAYER_TWO,3);
+        Pair score = game.currentSetScore();
         assertThat(game.isCurrentGameInDeuce()).isTrue();
+        assertThat(score.getPlayer1()).isEqualTo(DEUCE);
+        assertThat(score.getPlayer2()).isEqualTo(DEUCE);
     }
+
+
 }

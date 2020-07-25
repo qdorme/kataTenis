@@ -57,4 +57,11 @@ class ScreenTest {
         screen.display(pair);
         Mockito.verify(out).println("Player Two Win game");
     }
+
+    @Test
+    void shouldDisplayDeuceIfBothPlayersHave40Points() {
+        Pair pair = Pair.builder().player1(DEUCE).player2(DEUCE).build();
+        screen.display(pair);
+        Mockito.verify(out).println(DEUCE);
+    }
 }

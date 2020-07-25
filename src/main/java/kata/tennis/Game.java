@@ -34,9 +34,15 @@ public class Game {
         }else{
             playerTwoPoints = updatePoint(playerTwoPoints);
         }
-        if(FORTY.equals(playerOnePoints) && FORTY.equals(playerTwoPoints)){
+        if(hasBothPlayerReachedForty()){
             isGameInDeuce = Boolean.TRUE;
+            playerOnePoints = DEUCE;
+            playerTwoPoints = DEUCE;
         }
+    }
+
+    private boolean hasBothPlayerReachedForty() {
+        return FORTY.equals(playerOnePoints) && FORTY.equals(playerTwoPoints);
     }
 
     private String updatePoint(String pointToUpdate){
