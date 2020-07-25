@@ -109,4 +109,11 @@ class GameTest {
         game.displayPlayersScores();
         verify(displayUnit).display(any(Pair.class));
     }
+
+    @Test
+    void shouldActivateDeuceRuleIfBothPlayersReach40Points() {
+        playerWonPoints(game,PLAYER_ONE,3);
+        playerWonPoints(game,PLAYER_TWO,3);
+        assertThat(game.isCurrentGameInDeuce()).isTrue();
+    }
 }

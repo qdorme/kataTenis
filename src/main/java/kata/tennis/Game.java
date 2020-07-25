@@ -11,10 +11,12 @@ public class Game {
     public static final String THIRTY = "30";
     public static final String FORTY = "40";
     public static final String WIN_GAME = "Win game";
+    public static final String DEUCE = "DEUCE";
 
     private String playerOnePoints = ZERO;
     private String playerTwoPoints = ZERO;
     private DisplayUnit displayUnit;
+    private Boolean isGameInDeuce = Boolean.FALSE;
 
     public Game(DisplayUnit displayUnit){
         this.displayUnit = displayUnit;
@@ -32,6 +34,9 @@ public class Game {
         }else{
             playerTwoPoints = updatePoint(playerTwoPoints);
         }
+        if(FORTY.equals(playerOnePoints) && FORTY.equals(playerTwoPoints)){
+            isGameInDeuce = Boolean.TRUE;
+        }
     }
 
     private String updatePoint(String pointToUpdate){
@@ -48,5 +53,9 @@ public class Game {
     public void displayPlayersScores(){
         if(Objects.nonNull(displayUnit))
             displayUnit.display(Pair.builder().player1(playerOnePoints).player2(playerTwoPoints).build());
+    }
+
+    public boolean isCurrentGameInDeuce() {
+        return isGameInDeuce;
     }
 }
