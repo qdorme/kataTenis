@@ -15,15 +15,16 @@ public class Game {
 
     public void pointWonByPlayer(int player){
         if (player == PLAYER_ONE) {
-            if(playerOnePoints == 15)
-                playerOnePoints = 30;
-            else
-                playerOnePoints = 15;
+            playerOnePoints = updatePoint(playerOnePoints);
         }else{
-            if(playerTwoPoints == 15)
-                playerTwoPoints = 30;
-            else
-                playerTwoPoints = 15;
+            playerTwoPoints = updatePoint(playerTwoPoints);
         }
+    }
+
+    private int updatePoint(int pointToUdate){
+        if(pointToUdate == 15)
+            return 30;
+        else
+            return 15;
     }
 }
