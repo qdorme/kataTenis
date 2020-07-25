@@ -85,4 +85,12 @@ class GameTest {
         assertThat(score.getPlayer1()).isEqualTo(ZERO);
         assertThat(score.getPlayer2()).isEqualTo(WIN_GAME);
     }
+
+    @Test
+    void shouldReturnWinGameAndZeroPointWhenPlayerOneWinsFourPoint() {
+        playerWonPoints(game,PLAYER_ONE,4);
+        Pair score = game.currentSetScore();
+        assertThat(score.getPlayer1()).isEqualTo(WIN_GAME);
+        assertThat(score.getPlayer2()).isEqualTo(ZERO);
+    }
 }
