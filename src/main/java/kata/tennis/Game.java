@@ -17,7 +17,10 @@ public class Game {
         if (player == PLAYER_ONE) {
             playerOnePoints = 15;
         }else{
-            playerTwoPoints = 15;
+            if(playerTwoPoints == 15)
+                playerTwoPoints = 30;
+            else
+                playerTwoPoints = 15;
         }
     }
 }
