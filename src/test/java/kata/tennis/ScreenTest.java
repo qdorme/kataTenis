@@ -64,4 +64,18 @@ class ScreenTest {
         screen.display(pair);
         Mockito.verify(out).println(DEUCE);
     }
+
+    @Test
+    void ShouldDisplayAdvantageToPlayerOneIfHeHasIt() {
+        Pair pair = Pair.builder().player1(ADVANTAGE).player2(EMPTY).build();
+        screen.display(pair);
+        Mockito.verify(out).println("Advantage to Player One");
+    }
+
+    @Test
+    void ShouldDisplayAdvantageToPlayerTwoIfHeHasIt() {
+        Pair pair = Pair.builder().player1(EMPTY).player2(ADVANTAGE).build();
+        screen.display(pair);
+        Mockito.verify(out).println("Advantage to Player Two");
+    }
 }
