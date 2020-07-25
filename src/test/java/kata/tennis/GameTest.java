@@ -58,4 +58,14 @@ class GameTest {
         assertThat(score.getPlayer1()).isEqualTo(30);
         assertThat(score.getPlayer2()).isZero();
     }
+
+    @Test
+    void shouldReturnZeroFortyPointsWhenPlayerTwoWinsThreeTwoPoint() {
+        game.pointWonByPlayer(PLAYER_TWO);
+        game.pointWonByPlayer(PLAYER_TWO);
+        game.pointWonByPlayer(PLAYER_TWO);
+        Pair score = game.currentSetScore();
+        assertThat(score.getPlayer1()).isZero();
+        assertThat(score.getPlayer2()).isEqualTo(40);
+    }
 }

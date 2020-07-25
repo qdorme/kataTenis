@@ -22,6 +22,8 @@ public class Game {
     }
 
     private int updatePoint(int pointToUdate){
+        if(pointToUdate == 30)
+            return 40;
         if(pointToUdate == 15)
             return 30;
         else
