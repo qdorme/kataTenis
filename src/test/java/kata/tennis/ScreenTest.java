@@ -50,4 +50,11 @@ class ScreenTest {
         screen.display(pair);
         Mockito.verify(out).println("Player One Win game");
     }
+
+    @Test
+    void shouldDisplayPlayerTwoAsGameWinner() {
+        Pair pair = Pair.builder().player1(ZERO).player2(WIN_GAME).build();
+        screen.display(pair);
+        Mockito.verify(out).println("Player Two Win game");
+    }
 }
