@@ -2,18 +2,27 @@ package kata.tennis;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.stream.IntStream;
 
 import static kata.tennis.Game.*;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
 
+@ExtendWith(MockitoExtension.class)
 class GameTest {
     Game game;
 
+    @Mock
+    DisplayUnit displayUnit;
+
     @BeforeEach
     void setUp() {
-        game = new Game();
+        game = new Game(displayUnit);
     }
 
     private void playerWonPoints(Game game, int player, int times){
@@ -94,5 +103,10 @@ class GameTest {
         assertThat(score.getPlayer2()).isEqualTo(ZERO);
     }
 
-
+    @Test
+    void shouldDisplayPlayersScores() {
+        playerWonPoints(game,PLAYER_TWO,3);
+        game.displayPlayersScores();
+        verify(displayUnit).display(any(Pair.class));
+    }
 }

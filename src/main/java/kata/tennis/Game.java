@@ -1,5 +1,7 @@
 package kata.tennis;
 
+import java.util.Objects;
+
 public class Game {
     public static final int PLAYER_ONE = 1;
     public static final int PLAYER_TWO = 2;
@@ -12,6 +14,11 @@ public class Game {
 
     private String playerOnePoints = ZERO;
     private String playerTwoPoints = ZERO;
+    private DisplayUnit displayUnit;
+
+    public Game(DisplayUnit displayUnit){
+        this.displayUnit = displayUnit;
+    }
 
     public Pair currentSetScore() {
         return Pair.builder()
@@ -36,5 +43,10 @@ public class Game {
             return THIRTY;
         else
             return FIFTEEN;
+    }
+
+    public void displayPlayersScores(){
+        if(Objects.nonNull(displayUnit))
+            displayUnit.display(Pair.builder().player1(playerOnePoints).player2(playerTwoPoints).build());
     }
 }

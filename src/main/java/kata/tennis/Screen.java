@@ -2,7 +2,7 @@ package kata.tennis;
 
 import java.io.PrintStream;
 
-public class Screen {
+public class Screen implements DisplayUnit {
     PrintStream out;
 
     public Screen(PrintStream out) {
