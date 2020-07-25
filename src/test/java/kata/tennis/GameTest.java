@@ -26,8 +26,8 @@ class GameTest {
     void shouldReturnZeroPointsAtTheStart() {
         Pair score = game.currentSetScore();
         assertThat(score).isNotNull();
-        assertThat(score.getPlayer1()).isZero();
-        assertThat(score.getPlayer2()).isZero();
+        assertThat(score.getPlayer1()).isEqualTo("0");
+        assertThat(score.getPlayer2()).isEqualTo("0");
     }
 
     @Test
@@ -35,8 +35,8 @@ class GameTest {
         playerWonPoints(game,PLAYER_TWO,1);
         Pair score = game.currentSetScore();
         assertThat(score).isNotNull();
-        assertThat(score.getPlayer1()).isZero();
-        assertThat(score.getPlayer2()).isEqualTo(15);
+        assertThat(score.getPlayer1()).isEqualTo("0");
+        assertThat(score.getPlayer2()).isEqualTo("15");
     }
 
     @Test
@@ -44,39 +44,47 @@ class GameTest {
         playerWonPoints(game,PLAYER_ONE,1);
         Pair score = game.currentSetScore();
         assertThat(score).isNotNull();
-        assertThat(score.getPlayer1()).isEqualTo(15);
-        assertThat(score.getPlayer2()).isZero();
+        assertThat(score.getPlayer1()).isEqualTo("15");
+        assertThat(score.getPlayer2()).isEqualTo("0");
     }
 
     @Test
     void shouldReturnZeroThirtyPointsWhenPlayerTwoWinsFirstTwoPoint() {
         playerWonPoints(game,PLAYER_TWO,2);
         Pair score = game.currentSetScore();
-        assertThat(score.getPlayer1()).isZero();
-        assertThat(score.getPlayer2()).isEqualTo(30);
+        assertThat(score.getPlayer1()).isEqualTo("0");
+        assertThat(score.getPlayer2()).isEqualTo("30");
     }
 
     @Test
     void shouldReturnThirtyZeroPointsWhenPlayerOneWinsFirstTwoPoint() {
         playerWonPoints(game,PLAYER_ONE,2);
         Pair score = game.currentSetScore();
-        assertThat(score.getPlayer1()).isEqualTo(30);
-        assertThat(score.getPlayer2()).isZero();
+        assertThat(score.getPlayer1()).isEqualTo("30");
+        assertThat(score.getPlayer2()).isEqualTo("0");
     }
 
     @Test
     void shouldReturnZeroFortyPointsWhenPlayerTwoWinsFirstThreePoint() {
         playerWonPoints(game,PLAYER_TWO,3);
         Pair score = game.currentSetScore();
-        assertThat(score.getPlayer1()).isZero();
-        assertThat(score.getPlayer2()).isEqualTo(40);
+        assertThat(score.getPlayer1()).isEqualTo("0");
+        assertThat(score.getPlayer2()).isEqualTo("40");
     }
 
     @Test
     void shouldReturnFortyZeroPointsWhenPlayerOneWinsFirstThreePoint() {
         playerWonPoints(game,PLAYER_ONE,3);
         Pair score = game.currentSetScore();
-        assertThat(score.getPlayer1()).isEqualTo(40);
-        assertThat(score.getPlayer2()).isZero();
+        assertThat(score.getPlayer1()).isEqualTo("40");
+        assertThat(score.getPlayer2()).isEqualTo("0");
+    }
+
+    @Test
+    void shouldReturnZeroPointAndWinGameWhenPlayerTwoWinsFourPoint() {
+        playerWonPoints(game,PLAYER_TWO,4);
+        Pair score = game.currentSetScore();
+        assertThat(score.getPlayer1()).isEqualTo("0");
+        assertThat(score.getPlayer2()).isEqualTo("Win game");
     }
 }

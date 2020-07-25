@@ -6,6 +6,6 @@ import lombok.Getter;
 @Getter
 @Builder
 public class Pair {
-    private Integer player1;
-    private Integer player2;
+    private Object player1;
+    private Object player2;
 }

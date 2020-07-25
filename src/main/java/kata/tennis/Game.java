@@ -4,8 +4,8 @@ public class Game {
     public static final int PLAYER_ONE = 1;
     public static final int PLAYER_TWO = 2;
 
-    private int playerOnePoints;
-    private int playerTwoPoints;
+    private String playerOnePoints = "0";
+    private String playerTwoPoints = "0";
 
     public Pair currentSetScore() {
         return Pair.builder()
@@ -21,12 +21,14 @@ public class Game {
         }
     }
 
-    private int updatePoint(int pointToUdate){
-        if(pointToUdate == 30)
-            return 40;
-        if(pointToUdate == 15)
-            return 30;
+    private String updatePoint(String pointToUpdate){
+        if("40".equals(pointToUpdate))
+            return "Win game";
+        if("30".equals(pointToUpdate))
+            return "40";
+        if("15".equals(pointToUpdate))
+            return "30";
         else
-            return 15;
+            return "15";
     }
 }
