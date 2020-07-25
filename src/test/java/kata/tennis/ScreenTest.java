@@ -16,9 +16,15 @@ class ScreenTest {
     @Mock
     PrintStream out;
 
+    Screen screen;
+
+    @BeforeEach
+    void setUp() {
+        screen = new Screen(out);
+    }
+
     @Test
     void shouldDisplay0Minus0AtTheStartOfAGame() {
-        Screen screen = new Screen(out);
         Pair pair = Pair.builder().player1(ZERO).player2(ZERO).build();
         screen.display(pair);
         Mockito.verify(out).println("Player One 0-0 Player Two");
@@ -26,7 +32,6 @@ class ScreenTest {
 
     @Test
     void shouldDisplay0Minus15WhenOnePointIsWonByPlayerTwo() {
-        Screen screen = new Screen(out);
         Pair pair = Pair.builder().player1(ZERO).player2(FIFTEEN).build();
         screen.display(pair);
         Mockito.verify(out).println("Player One 0-15 Player Two");
@@ -34,9 +39,15 @@ class ScreenTest {
 
     @Test
     void shouldDisplay15Minus0WhenOnePointIsWonByPlayerOne() {
-        Screen screen = new Screen(out);
         Pair pair = Pair.builder().player1(FIFTEEN).player2(ZERO).build();
         screen.display(pair);
         Mockito.verify(out).println("Player One 15-0 Player Two");
+    }
+
+    @Test
+    void shouldDisplayPlayerOneAsGameWinner() {
+        Pair pair = Pair.builder().player1(WIN_GAME).player2(ZERO).build();
+        screen.display(pair);
+        Mockito.verify(out).println("Player One Win game");
     }
 }
