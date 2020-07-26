@@ -41,20 +41,36 @@ public class Game {
             playerOnePoints = DEUCE;
             playerTwoPoints = DEUCE;
         }
-        if(oneOfPlayerTakeAdvantage()){
-            theOtherBecomeEmpty();
+        if(oneOfPlayerTakeAdvantage(player)){
+            theOtherBecomeEmpty(player);
+        }
+        if(oneOfPlayerLooseAdvantage(player)){
+            theOtherBecomeDeuce(player);
         }
     }
 
-    private void theOtherBecomeEmpty() {
-        if(ADVANTAGE.equals(playerOnePoints))
+    private void theOtherBecomeDeuce(int playerWhoWonPoint) {
+        if(playerWhoWonPoint == PLAYER_ONE)
+            playerTwoPoints = DEUCE;
+        else
+            playerOnePoints = DEUCE;
+    }
+
+    private boolean oneOfPlayerLooseAdvantage(int playerWhoWonPoint) {
+        return playerWhoWonPoint == PLAYER_TWO && ADVANTAGE.equals(playerOnePoints)
+               || playerWhoWonPoint == PLAYER_ONE && ADVANTAGE.equals(playerTwoPoints);
+    }
+
+    private void theOtherBecomeEmpty(int playerWhoWonPoint) {
+        if(playerWhoWonPoint == PLAYER_ONE)
             playerTwoPoints = EMPTY;
         else
             playerOnePoints = EMPTY;
     }
 
-    private boolean oneOfPlayerTakeAdvantage() {
-        return ADVANTAGE.equals(playerOnePoints) || ADVANTAGE.equals(playerTwoPoints);
+    private boolean oneOfPlayerTakeAdvantage(int playerWhoWonPoint) {
+        return playerWhoWonPoint == PLAYER_ONE && ADVANTAGE.equals(playerOnePoints)
+               || playerWhoWonPoint == PLAYER_TWO && ADVANTAGE.equals(playerTwoPoints);
     }
 
     private boolean hasBothPlayerReachedForty() {
@@ -62,6 +78,8 @@ public class Game {
     }
 
     private String updatePoint(String pointToUpdate){
+        if(EMPTY.equals(pointToUpdate))
+            return DEUCE;
         if(DEUCE.equals(pointToUpdate))
             return ADVANTAGE;
         if(FORTY.equals(pointToUpdate) || ADVANTAGE.equals(pointToUpdate))
