@@ -69,9 +69,13 @@ public class Game {
 
     private boolean hasPlayerWonSet(int player) {
         if(player == PLAYER_ONE)
-            return (playerOneSets == 6 && playerTwoSets <=4) || (playerOneSets == 7 && !isGameInTieBreak);
+            return (playerOneSets == 6 && playerTwoSets <=4)
+                   || (playerOneSets == 7 && !isGameInTieBreak)
+                   || isGameInTieBreak && playerOneSets - playerTwoSets == 2;
         else
-            return (playerTwoSets == 6 && playerOneSets <=4) || (playerTwoSets == 7 && !isGameInTieBreak);
+            return (playerTwoSets == 6 && playerOneSets <=4)
+                   || (playerTwoSets == 7 && !isGameInTieBreak)
+                   || isGameInTieBreak && playerTwoSets - playerOneSets == 2;
     }
 
     private void updateSet(int playerWhoWonPoint) {

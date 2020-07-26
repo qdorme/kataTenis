@@ -247,4 +247,37 @@ class GameTest {
         playerWonSet(game,PLAYER_TWO,1);
         assertThat(game.isCurrentGameInTieBreak()).isTrue();
     }
+
+    @Test
+    void shouldNotHaveAWinnerIfTieBreakActivatedAndOnePlayerReachSevenSet() {
+        playerWonSet(game,PLAYER_ONE,4);
+        playerWonSet(game,PLAYER_TWO,5);
+        playerWonSet(game,PLAYER_ONE,2);
+        playerWonSet(game,PLAYER_TWO,2);
+        assertThat(game.isCurrentGameInTieBreak()).isTrue();
+        assertThat(game.winnerOfSetIs()).isZero();
+    }
+
+    @Test
+    void ShouldHavePlayerOneAsWinnerIfTieBreakIsActiveAndTwoSetMoreThanPlayerTwo() {
+        playerWonSet(game,PLAYER_ONE,4);
+        playerWonSet(game,PLAYER_TWO,5);
+        playerWonSet(game,PLAYER_ONE,2);
+        playerWonSet(game,PLAYER_TWO,2);
+        playerWonSet(game,PLAYER_ONE,3);
+        assertThat(game.isCurrentGameInTieBreak()).isTrue();
+        assertThat(game.winnerOfSetIs()).isEqualTo(PLAYER_ONE);
+    }
+
+    @Test
+    void ShouldHavePlayerTwoAsWinnerIfTieBreakIsActiveAndTwoSetMoreThanPlayerOne() {
+        playerWonSet(game,PLAYER_ONE,4);
+        playerWonSet(game,PLAYER_TWO,5);
+        playerWonSet(game,PLAYER_ONE,2);
+        playerWonSet(game,PLAYER_TWO,2);
+        playerWonSet(game,PLAYER_ONE,1);
+        playerWonSet(game,PLAYER_TWO,2);
+        assertThat(game.isCurrentGameInTieBreak()).isTrue();
+        assertThat(game.winnerOfSetIs()).isEqualTo(PLAYER_TWO);
+    }
 }
