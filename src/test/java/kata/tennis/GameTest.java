@@ -193,5 +193,14 @@ class GameTest {
         assertThat((Integer)currentSetScore.getPlayer2()).isZero();
     }
 
+    @Test
+    void shouldReturnOneZeroIfPlayerOneWinFirstSetScore() {
+        playerWonPoints(game,PLAYER_ONE,4);
+        Pair currentSetScore = game.currentSetScore();
+        assertThat(currentSetScore).isNotNull();
+        assertThat(currentSetScore.getPlayer1()).isEqualTo(1);
+        assertThat((Integer)currentSetScore.getPlayer2()).isZero();
+    }
+
 
 }

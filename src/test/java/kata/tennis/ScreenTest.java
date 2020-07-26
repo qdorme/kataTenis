@@ -86,4 +86,20 @@ class ScreenTest {
         Mockito.verify(out).println("Player One : 0\n" +
                                     "Player Two : 0");
     }
+
+    @Test
+    void shouldDisplay1And0SetAtWhenPlayerOneWinFirstSet() {
+        Pair pair = Pair.builder().player1(1).player2(0).build();
+        screen.displaySetsScore(pair);
+        Mockito.verify(out).println("Player One : 1\n" +
+                                    "Player Two : 0");
+    }
+
+    @Test
+    void shouldDisplay1And2SetAtWhenPlayerOneWinFirstSetAndPlayerTwoBothFollowing() {
+        Pair pair = Pair.builder().player1(1).player2(2).build();
+        screen.displaySetsScore(pair);
+        Mockito.verify(out).println("Player One : 1\n" +
+                                    "Player Two : 2");
+    }
 }

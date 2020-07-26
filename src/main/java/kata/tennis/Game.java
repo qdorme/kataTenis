@@ -19,6 +19,9 @@ public class Game {
     private String playerTwoPoints = ZERO;
     private DisplayUnit displayUnit;
     private Boolean isGameInDeuce = Boolean.FALSE;
+    private int playerOneSets = 0;
+    private int playerTwoSets = 0;
+
 
     public Game(DisplayUnit displayUnit){
         this.displayUnit = displayUnit;
@@ -47,6 +50,20 @@ public class Game {
         if(oneOfPlayerLooseAdvantage(player)){
             theOtherBecomeDeuce(player);
         }
+        if(oneOfPlayerWinGame()){
+            updateSet(player);
+        }
+    }
+
+    private void updateSet(int playerWhoWonPoint) {
+        if(PLAYER_ONE == playerWhoWonPoint)
+            playerOneSets++;
+        else
+            playerTwoSets++;
+    }
+
+    private boolean oneOfPlayerWinGame() {
+        return WIN_GAME.equals(playerOnePoints) || WIN_GAME.equals(playerTwoPoints);
     }
 
     private void theOtherBecomeDeuce(int playerWhoWonPoint) {
@@ -102,6 +119,6 @@ public class Game {
     }
 
     public Pair currentSetScore() {
-        return Pair.builder().player1(0).player2(0).build();
+        return Pair.builder().player1(playerOneSets).player2(playerTwoSets).build();
     }
 }

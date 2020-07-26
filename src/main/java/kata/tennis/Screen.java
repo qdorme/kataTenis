@@ -29,8 +29,8 @@ public class Screen implements DisplayUnit {
 
     @Override
     public void displaySetsScore(Pair pair) {
-        out.println("Player One : 0\n" +
-                    "Player Two : 0");
+        out.println(String.format("Player One : %s\n" +
+                                  "Player Two : %s",pair.getPlayer1(),pair.getPlayer2()));
     }
 
     private boolean isThereADeuce(Pair score) {
