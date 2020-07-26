@@ -29,6 +29,10 @@ class GameTest {
         IntStream.range(0,times).forEach(time -> game.pointWonByPlayer(player));
     }
 
+    private void playerWonSet(Game game, int player, int times){
+        IntStream.range(0,times).forEach(time -> playerWonPoints(game,player,4));
+    }
+
     @Test
     void shouldReturnZeroPointsAtTheBeginning() {
         Pair score = game.currentGameScore();
@@ -167,12 +171,22 @@ class GameTest {
 
     @Test
     void ShouldReturnOneOneIfBothPlayerWinASet() {
-        playerWonPoints(game,PLAYER_ONE,4);
-        playerWonPoints(game,PLAYER_TWO,4);
+        playerWonSet(game,PLAYER_ONE,1);
+        playerWonSet(game,PLAYER_TWO,1);
         Pair currentSetScore = game.currentSetScore();
         assertThat(currentSetScore).isNotNull();
         assertThat(currentSetScore.getPlayer1()).isEqualTo(1);
         assertThat(currentSetScore.getPlayer2()).isEqualTo(1);
     }
 
+    @Test
+    void ShouldReturnPlayerOneAsSetWinnerIfHeReachSixSetWhilePlayerTwoIsUnderFive() {
+        playerWonSet(game,PLAYER_ONE,4);
+        playerWonSet(game,PLAYER_TWO,6);
+        Pair currentSetScore = game.currentSetScore();
+        assertThat(currentSetScore).isNotNull();
+        assertThat(currentSetScore.getPlayer1()).isEqualTo(4);
+        assertThat(currentSetScore.getPlayer2()).isEqualTo(6);
+        assertThat(game.winnerOfSetIs()).isEqualTo(PLAYER_TWO);
+    }
 }

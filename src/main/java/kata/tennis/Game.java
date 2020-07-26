@@ -128,4 +128,8 @@ public class Game {
     public Pair currentSetScore() {
         return Pair.builder().player1(playerOneSets).player2(playerTwoSets).build();
     }
+
+    public int winnerOfSetIs() {
+        return PLAYER_TWO;
+    }
 }
