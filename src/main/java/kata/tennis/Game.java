@@ -21,6 +21,7 @@ public class Game {
     private Boolean isGameInDeuce = Boolean.FALSE;
     private int playerOneSets = 0;
     private int playerTwoSets = 0;
+    private int setWinner;
 
 
     public Game(DisplayUnit displayUnit){
@@ -52,7 +53,17 @@ public class Game {
         }
         if(oneOfPlayerWinGame()){
             updateSet(player);
+            if(hasPlayerWonSet(player)){
+                setWinner = player;
+            }
         }
+    }
+
+    private boolean hasPlayerWonSet(int player) {
+        if(player == PLAYER_ONE)
+            return playerOneSets == 6 && playerTwoSets <=4;
+        else
+            return playerTwoSets == 6 && playerOneSets <=4;
     }
 
     private void updateSet(int playerWhoWonPoint) {
@@ -130,6 +141,6 @@ public class Game {
     }
 
     public int winnerOfSetIs() {
-        return PLAYER_TWO;
+        return setWinner;
     }
 }

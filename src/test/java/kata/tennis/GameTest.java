@@ -180,7 +180,7 @@ class GameTest {
     }
 
     @Test
-    void ShouldReturnPlayerOneAsSetWinnerIfHeReachSixSetWhilePlayerTwoIsUnderFive() {
+    void ShouldReturnPlayerTwoAsSetWinnerIfHeReachSixSetWhilePlayerTwoIsUnderFive() {
         playerWonSet(game,PLAYER_ONE,4);
         playerWonSet(game,PLAYER_TWO,6);
         Pair currentSetScore = game.currentSetScore();
@@ -188,5 +188,16 @@ class GameTest {
         assertThat(currentSetScore.getPlayer1()).isEqualTo(4);
         assertThat(currentSetScore.getPlayer2()).isEqualTo(6);
         assertThat(game.winnerOfSetIs()).isEqualTo(PLAYER_TWO);
+    }
+
+    @Test
+    void ShouldReturnPlayerOneAsSetWinnerIfHeReachSixSetWhilePlayerTwoIsUnderFive() {
+        playerWonSet(game,PLAYER_TWO,4);
+        playerWonSet(game,PLAYER_ONE,6);
+        Pair currentSetScore = game.currentSetScore();
+        assertThat(currentSetScore).isNotNull();
+        assertThat(currentSetScore.getPlayer1()).isEqualTo(6);
+        assertThat(currentSetScore.getPlayer2()).isEqualTo(4);
+        assertThat(game.winnerOfSetIs()).isEqualTo(PLAYER_ONE);
     }
 }
