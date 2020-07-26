@@ -88,22 +88,6 @@ class GameTest {
     }
 
     @Test
-    void shouldReturnZeroPointAndWinGameWhenPlayerTwoWinsFourPoint() {
-        playerWonPoints(game,PLAYER_TWO,4);
-        Pair score = game.currentGameScore();
-        assertThat(score.getPlayer1()).isEqualTo(ZERO);
-        assertThat(score.getPlayer2()).isEqualTo(WIN_GAME);
-    }
-
-    @Test
-    void shouldReturnWinGameAndZeroPointWhenPlayerOneWinsFourPoint() {
-        playerWonPoints(game,PLAYER_ONE,4);
-        Pair score = game.currentGameScore();
-        assertThat(score.getPlayer1()).isEqualTo(WIN_GAME);
-        assertThat(score.getPlayer2()).isEqualTo(ZERO);
-    }
-
-    @Test
     void shouldDisplayPlayersScores() {
         playerWonPoints(game,PLAYER_TWO,3);
         game.displayPlayersScores();
@@ -139,27 +123,6 @@ class GameTest {
         assertThat(game.isCurrentGameInDeuce()).isTrue();
         assertThat(score.getPlayer1()).isEqualTo(EMPTY);
         assertThat(score.getPlayer2()).isEqualTo(ADVANTAGE);
-    }
-
-    @Test
-    void shouldReturnPlayerOneHasGameWinnerIfHeWinPointWhileHeHasAdvantage() {
-        playerWonPoints(game,PLAYER_ONE,3);
-        playerWonPoints(game,PLAYER_TWO,3);
-        playerWonPoints(game,PLAYER_ONE,2);
-        Pair score = game.currentGameScore();
-        assertThat(game.isCurrentGameInDeuce()).isTrue();
-        assertThat(score.getPlayer1()).isEqualTo(WIN_GAME);
-        assertThat(score.getPlayer2()).isEqualTo(EMPTY);
-    }
-
-    @Test
-    void shouldReturnPlayerTwoHasGameWinnerIfHeWinPointWhileHeHasAdvantage() {
-        playerWonPoints(game,PLAYER_ONE,3);
-        playerWonPoints(game,PLAYER_TWO,5);
-        Pair score = game.currentGameScore();
-        assertThat(game.isCurrentGameInDeuce()).isTrue();
-        assertThat(score.getPlayer1()).isEqualTo(EMPTY);
-        assertThat(score.getPlayer2()).isEqualTo(WIN_GAME);
     }
 
     @Test
@@ -202,5 +165,14 @@ class GameTest {
         assertThat((Integer)currentSetScore.getPlayer2()).isZero();
     }
 
+    @Test
+    void ShouldReturnOneOneIfBothPlayerWinASet() {
+        playerWonPoints(game,PLAYER_ONE,4);
+        playerWonPoints(game,PLAYER_TWO,4);
+        Pair currentSetScore = game.currentSetScore();
+        assertThat(currentSetScore).isNotNull();
+        assertThat(currentSetScore.getPlayer1()).isEqualTo(1);
+        assertThat(currentSetScore.getPlayer2()).isEqualTo(1);
+    }
 
 }

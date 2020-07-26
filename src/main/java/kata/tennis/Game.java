@@ -60,6 +60,13 @@ public class Game {
             playerOneSets++;
         else
             playerTwoSets++;
+        resetBothPlayersPoints();
+    }
+
+    private void resetBothPlayersPoints() {
+        playerOnePoints=ZERO;
+        playerTwoPoints=ZERO;
+        isGameInDeuce=Boolean.FALSE;
     }
 
     private boolean oneOfPlayerWinGame() {
