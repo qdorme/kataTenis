@@ -17,8 +17,9 @@ public class Game {
 
     private String playerOnePoints = ZERO;
     private String playerTwoPoints = ZERO;
-    private DisplayUnit displayUnit;
+    private final DisplayUnit displayUnit;
     private Boolean isGameInDeuce = Boolean.FALSE;
+    private Boolean isGameInTieBreak = Boolean.FALSE;
     private int playerOneSets = 0;
     private int playerTwoSets = 0;
     private int setWinner;
@@ -53,17 +54,24 @@ public class Game {
         }
         if(oneOfPlayerWinGame()){
             updateSet(player);
+            if(hasBothPlayerReachedSixSets()){
+                isGameInTieBreak = Boolean.TRUE;
+            }
             if(hasPlayerWonSet(player)){
                 setWinner = player;
             }
         }
     }
 
+    private boolean hasBothPlayerReachedSixSets() {
+        return playerOneSets == 6 && playerTwoSets == 6;
+    }
+
     private boolean hasPlayerWonSet(int player) {
         if(player == PLAYER_ONE)
-            return (playerOneSets == 6 && playerTwoSets <=4) || playerOneSets == 7;
+            return (playerOneSets == 6 && playerTwoSets <=4) || (playerOneSets == 7 && !isGameInTieBreak);
         else
-            return (playerTwoSets == 6 && playerOneSets <=4)  || playerTwoSets == 7;
+            return (playerTwoSets == 6 && playerOneSets <=4) || (playerTwoSets == 7 && !isGameInTieBreak);
     }
 
     private void updateSet(int playerWhoWonPoint) {
@@ -147,5 +155,9 @@ public class Game {
     public void displayPlayersSetScores() {
         if(Objects.nonNull(displayUnit))
             displayUnit.displaySetsScore(Pair.builder().player1(playerOneSets).player2(playerTwoSets).build(),setWinner);
+    }
+
+    public boolean isCurrentGameInTieBreak() {
+        return isGameInTieBreak;
     }
 }

@@ -232,4 +232,19 @@ class GameTest {
         verify(displayUnit).displaySetsScore(any(Pair.class),eq(PLAYER_TWO));
     }
 
+    @Test
+    void shouldNotActivateTieBreakRuleIfEachPlayerScoreSixSet() {
+        playerWonSet(game,PLAYER_ONE,4);
+        playerWonSet(game,PLAYER_TWO,5);
+        assertThat(game.isCurrentGameInTieBreak()).isFalse();
+    }
+
+    @Test
+    void shouldActivateTieBreakRuleIfEachPlayerScoreSixSet() {
+        playerWonSet(game,PLAYER_ONE,4);
+        playerWonSet(game,PLAYER_TWO,5);
+        playerWonSet(game,PLAYER_ONE,2);
+        playerWonSet(game,PLAYER_TWO,1);
+        assertThat(game.isCurrentGameInTieBreak()).isTrue();
+    }
 }
