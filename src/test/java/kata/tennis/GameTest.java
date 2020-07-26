@@ -11,6 +11,7 @@ import java.util.stream.IntStream;
 import static kata.tennis.Game.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
@@ -200,4 +201,35 @@ class GameTest {
         assertThat(currentSetScore.getPlayer2()).isEqualTo(4);
         assertThat(game.winnerOfSetIs()).isEqualTo(PLAYER_ONE);
     }
+
+    @Test
+    void ShouldReturnPlayerOneAsSetWinnerAfterReachingSevenSet() {
+        playerWonSet(game,PLAYER_ONE,5);
+        playerWonSet(game,PLAYER_TWO,5);
+        playerWonSet(game,PLAYER_ONE,2);
+        Pair currentSetScore = game.currentSetScore();
+        assertThat(currentSetScore).isNotNull();
+        assertThat(currentSetScore.getPlayer1()).isEqualTo(7);
+        assertThat(currentSetScore.getPlayer2()).isEqualTo(5);
+        assertThat(game.winnerOfSetIs()).isEqualTo(PLAYER_ONE);
+    }
+
+    @Test
+    void ShouldReturnPlayerTwoAsSetWinnerAfterReachingSevenSet() {
+        playerWonSet(game,PLAYER_ONE,5);
+        playerWonSet(game,PLAYER_TWO,7);
+        Pair currentSetScore = game.currentSetScore();
+        assertThat(currentSetScore).isNotNull();
+        assertThat(currentSetScore.getPlayer1()).isEqualTo(5);
+        assertThat(currentSetScore.getPlayer2()).isEqualTo(7);
+        assertThat(game.winnerOfSetIs()).isEqualTo(PLAYER_TWO);
+    }
+
+    @Test
+    void shouldDisplayPlayersSetScores() {
+        playerWonSet(game,PLAYER_TWO,6);
+        game.displayPlayersSetScores();
+        verify(displayUnit).displaySetsScore(any(Pair.class),eq(PLAYER_TWO));
+    }
+
 }

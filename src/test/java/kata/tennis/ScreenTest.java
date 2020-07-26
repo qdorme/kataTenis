@@ -82,7 +82,7 @@ class ScreenTest {
     @Test
     void shouldDisplay0SetAtTheStartOfAMatch() {
         Pair pair = Pair.builder().player1(0).player2(0).build();
-        screen.displaySetsScore(pair);
+        screen.displaySetsScore(pair, 0);
         Mockito.verify(out).println("Player One : 0\n" +
                                     "Player Two : 0");
     }
@@ -90,7 +90,7 @@ class ScreenTest {
     @Test
     void shouldDisplay1And0SetAtWhenPlayerOneWinFirstSet() {
         Pair pair = Pair.builder().player1(1).player2(0).build();
-        screen.displaySetsScore(pair);
+        screen.displaySetsScore(pair, 0);
         Mockito.verify(out).println("Player One : 1\n" +
                                     "Player Two : 0");
     }
@@ -98,8 +98,26 @@ class ScreenTest {
     @Test
     void shouldDisplay1And2SetAtWhenPlayerOneWinFirstSetAndPlayerTwoBothFollowing() {
         Pair pair = Pair.builder().player1(1).player2(2).build();
-        screen.displaySetsScore(pair);
+        screen.displaySetsScore(pair, 0);
         Mockito.verify(out).println("Player One : 1\n" +
                                     "Player Two : 2");
+    }
+
+    @Test
+    void shouldDisplaySetScoresAndPlayerTwoAsWinner() {
+        Pair pair = Pair.builder().player1(5).player2(7).build();
+        screen.displaySetsScore(pair,PLAYER_TWO);
+        Mockito.verify(out).println("Player One : 5\n" +
+                                    "Player Two : 7");
+        Mockito.verify(out).println("Winner : Player Two");
+    }
+
+    @Test
+    void shouldDisplaySetScoresAndPlayerOneAsWinner() {
+        Pair pair = Pair.builder().player1(7).player2(5).build();
+        screen.displaySetsScore(pair,PLAYER_ONE);
+        Mockito.verify(out).println("Player One : 7\n" +
+                                    "Player Two : 5");
+        Mockito.verify(out).println("Winner : Player One");
     }
 }

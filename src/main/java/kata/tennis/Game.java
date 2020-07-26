@@ -61,9 +61,9 @@ public class Game {
 
     private boolean hasPlayerWonSet(int player) {
         if(player == PLAYER_ONE)
-            return playerOneSets == 6 && playerTwoSets <=4;
+            return (playerOneSets == 6 && playerTwoSets <=4) || playerOneSets == 7;
         else
-            return playerTwoSets == 6 && playerOneSets <=4;
+            return (playerTwoSets == 6 && playerOneSets <=4)  || playerTwoSets == 7;
     }
 
     private void updateSet(int playerWhoWonPoint) {
@@ -142,5 +142,10 @@ public class Game {
 
     public int winnerOfSetIs() {
         return setWinner;
+    }
+
+    public void displayPlayersSetScores() {
+        if(Objects.nonNull(displayUnit))
+            displayUnit.displaySetsScore(Pair.builder().player1(playerOneSets).player2(playerTwoSets).build(),setWinner);
     }
 }
