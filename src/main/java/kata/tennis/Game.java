@@ -24,7 +24,7 @@ public class Game {
         this.displayUnit = displayUnit;
     }
 
-    public Pair currentSetScore() {
+    public Pair currentGameScore() {
         return Pair.builder()
                 .player1(playerOnePoints)
                 .player2(playerTwoPoints).build();
@@ -94,10 +94,14 @@ public class Game {
 
     public void displayPlayersScores(){
         if(Objects.nonNull(displayUnit))
-            displayUnit.display(Pair.builder().player1(playerOnePoints).player2(playerTwoPoints).build());
+            displayUnit.displayGameScore(Pair.builder().player1(playerOnePoints).player2(playerTwoPoints).build());
     }
 
     public boolean isCurrentGameInDeuce() {
         return isGameInDeuce;
+    }
+
+    public Pair currentSetScore() {
+        return Pair.builder().player1(0).player2(0).build();
     }
 }

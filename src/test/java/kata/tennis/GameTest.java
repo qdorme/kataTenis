@@ -30,8 +30,8 @@ class GameTest {
     }
 
     @Test
-    void shouldReturnZeroPointsAtTheStart() {
-        Pair score = game.currentSetScore();
+    void shouldReturnZeroPointsAtTheBeginning() {
+        Pair score = game.currentGameScore();
         assertThat(score).isNotNull();
         assertThat(score.getPlayer1()).isEqualTo(ZERO);
         assertThat(score.getPlayer2()).isEqualTo(ZERO);
@@ -40,7 +40,7 @@ class GameTest {
     @Test
     void shouldReturnZeroFifteenPointsWhenPlayerTwoWinsFirstPoint() {
         playerWonPoints(game,PLAYER_TWO,1);
-        Pair score = game.currentSetScore();
+        Pair score = game.currentGameScore();
         assertThat(score).isNotNull();
         assertThat(score.getPlayer1()).isEqualTo(ZERO);
         assertThat(score.getPlayer2()).isEqualTo(FIFTEEN);
@@ -49,7 +49,7 @@ class GameTest {
     @Test
     void shouldReturnFifteenZeroPointsWhenPlayerOneWinsFirstPoint() {
         playerWonPoints(game,PLAYER_ONE,1);
-        Pair score = game.currentSetScore();
+        Pair score = game.currentGameScore();
         assertThat(score).isNotNull();
         assertThat(score.getPlayer1()).isEqualTo(FIFTEEN);
         assertThat(score.getPlayer2()).isEqualTo(ZERO);
@@ -58,7 +58,7 @@ class GameTest {
     @Test
     void shouldReturnZeroThirtyPointsWhenPlayerTwoWinsFirstTwoPoint() {
         playerWonPoints(game,PLAYER_TWO,2);
-        Pair score = game.currentSetScore();
+        Pair score = game.currentGameScore();
         assertThat(score.getPlayer1()).isEqualTo(ZERO);
         assertThat(score.getPlayer2()).isEqualTo(THIRTY);
     }
@@ -66,7 +66,7 @@ class GameTest {
     @Test
     void shouldReturnThirtyZeroPointsWhenPlayerOneWinsFirstTwoPoint() {
         playerWonPoints(game,PLAYER_ONE,2);
-        Pair score = game.currentSetScore();
+        Pair score = game.currentGameScore();
         assertThat(score.getPlayer1()).isEqualTo(THIRTY);
         assertThat(score.getPlayer2()).isEqualTo(ZERO);
     }
@@ -74,7 +74,7 @@ class GameTest {
     @Test
     void shouldReturnZeroFortyPointsWhenPlayerTwoWinsFirstThreePoint() {
         playerWonPoints(game,PLAYER_TWO,3);
-        Pair score = game.currentSetScore();
+        Pair score = game.currentGameScore();
         assertThat(score.getPlayer1()).isEqualTo(ZERO);
         assertThat(score.getPlayer2()).isEqualTo(FORTY);
     }
@@ -82,7 +82,7 @@ class GameTest {
     @Test
     void shouldReturnFortyZeroPointsWhenPlayerOneWinsFirstThreePoint() {
         playerWonPoints(game,PLAYER_ONE,3);
-        Pair score = game.currentSetScore();
+        Pair score = game.currentGameScore();
         assertThat(score.getPlayer1()).isEqualTo(FORTY);
         assertThat(score.getPlayer2()).isEqualTo(ZERO);
     }
@@ -90,7 +90,7 @@ class GameTest {
     @Test
     void shouldReturnZeroPointAndWinGameWhenPlayerTwoWinsFourPoint() {
         playerWonPoints(game,PLAYER_TWO,4);
-        Pair score = game.currentSetScore();
+        Pair score = game.currentGameScore();
         assertThat(score.getPlayer1()).isEqualTo(ZERO);
         assertThat(score.getPlayer2()).isEqualTo(WIN_GAME);
     }
@@ -98,7 +98,7 @@ class GameTest {
     @Test
     void shouldReturnWinGameAndZeroPointWhenPlayerOneWinsFourPoint() {
         playerWonPoints(game,PLAYER_ONE,4);
-        Pair score = game.currentSetScore();
+        Pair score = game.currentGameScore();
         assertThat(score.getPlayer1()).isEqualTo(WIN_GAME);
         assertThat(score.getPlayer2()).isEqualTo(ZERO);
     }
@@ -107,14 +107,14 @@ class GameTest {
     void shouldDisplayPlayersScores() {
         playerWonPoints(game,PLAYER_TWO,3);
         game.displayPlayersScores();
-        verify(displayUnit).display(any(Pair.class));
+        verify(displayUnit).displayGameScore(any(Pair.class));
     }
 
     @Test
     void shouldActivateDeuceRuleIfBothPlayersReach40Points() {
         playerWonPoints(game,PLAYER_ONE,3);
         playerWonPoints(game,PLAYER_TWO,3);
-        Pair score = game.currentSetScore();
+        Pair score = game.currentGameScore();
         assertThat(game.isCurrentGameInDeuce()).isTrue();
         assertThat(score.getPlayer1()).isEqualTo(DEUCE);
         assertThat(score.getPlayer2()).isEqualTo(DEUCE);
@@ -125,7 +125,7 @@ class GameTest {
         playerWonPoints(game,PLAYER_ONE,3);
         playerWonPoints(game,PLAYER_TWO,3);
         playerWonPoints(game,PLAYER_ONE,1);
-        Pair score = game.currentSetScore();
+        Pair score = game.currentGameScore();
         assertThat(game.isCurrentGameInDeuce()).isTrue();
         assertThat(score.getPlayer1()).isEqualTo(ADVANTAGE);
         assertThat(score.getPlayer2()).isEqualTo(EMPTY);
@@ -135,7 +135,7 @@ class GameTest {
     void shouldReturnAdvantageToPlayerTwoIfHeWinPointWhileDeuce() {
         playerWonPoints(game,PLAYER_ONE,3);
         playerWonPoints(game,PLAYER_TWO,4);
-        Pair score = game.currentSetScore();
+        Pair score = game.currentGameScore();
         assertThat(game.isCurrentGameInDeuce()).isTrue();
         assertThat(score.getPlayer1()).isEqualTo(EMPTY);
         assertThat(score.getPlayer2()).isEqualTo(ADVANTAGE);
@@ -146,7 +146,7 @@ class GameTest {
         playerWonPoints(game,PLAYER_ONE,3);
         playerWonPoints(game,PLAYER_TWO,3);
         playerWonPoints(game,PLAYER_ONE,2);
-        Pair score = game.currentSetScore();
+        Pair score = game.currentGameScore();
         assertThat(game.isCurrentGameInDeuce()).isTrue();
         assertThat(score.getPlayer1()).isEqualTo(WIN_GAME);
         assertThat(score.getPlayer2()).isEqualTo(EMPTY);
@@ -156,7 +156,7 @@ class GameTest {
     void shouldReturnPlayerTwoHasGameWinnerIfHeWinPointWhileHeHasAdvantage() {
         playerWonPoints(game,PLAYER_ONE,3);
         playerWonPoints(game,PLAYER_TWO,5);
-        Pair score = game.currentSetScore();
+        Pair score = game.currentGameScore();
         assertThat(game.isCurrentGameInDeuce()).isTrue();
         assertThat(score.getPlayer1()).isEqualTo(EMPTY);
         assertThat(score.getPlayer2()).isEqualTo(WIN_GAME);
@@ -168,7 +168,7 @@ class GameTest {
         playerWonPoints(game,PLAYER_TWO,3);
         playerWonPoints(game,PLAYER_ONE,1);
         playerWonPoints(game,PLAYER_TWO,1);
-        Pair score = game.currentSetScore();
+        Pair score = game.currentGameScore();
         assertThat(game.isCurrentGameInDeuce()).isTrue();
         assertThat(score.getPlayer1()).isEqualTo(DEUCE);
         assertThat(score.getPlayer2()).isEqualTo(DEUCE);
@@ -179,9 +179,19 @@ class GameTest {
         playerWonPoints(game,PLAYER_ONE,3);
         playerWonPoints(game,PLAYER_TWO,4);
         playerWonPoints(game,PLAYER_ONE,1);
-        Pair score = game.currentSetScore();
+        Pair score = game.currentGameScore();
         assertThat(game.isCurrentGameInDeuce()).isTrue();
         assertThat(score.getPlayer1()).isEqualTo(DEUCE);
         assertThat(score.getPlayer2()).isEqualTo(DEUCE);
     }
+
+    @Test
+    void shouldReturnZeoSetsAtTheBeginning() {
+        Pair currentSetScore = game.currentSetScore();
+        assertThat(currentSetScore).isNotNull();
+        assertThat((Integer)currentSetScore.getPlayer1()).isZero();
+        assertThat((Integer)currentSetScore.getPlayer2()).isZero();
+    }
+
+
 }

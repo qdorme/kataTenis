@@ -11,7 +11,7 @@ public class Screen implements DisplayUnit {
         this.out = out;
     }
 
-    public void display(Pair score) {
+    public void displayGameScore(Pair score) {
         if(WIN_GAME.equals(score.getPlayer1())){
             out.println(String.format("Player One %s", score.getPlayer1()));
         } else if(WIN_GAME.equals(score.getPlayer2())){
@@ -25,6 +25,12 @@ public class Screen implements DisplayUnit {
         } else {
             out.println(String.format("Player One %s-%s Player Two", score.getPlayer1(), score.getPlayer2()));
         }
+    }
+
+    @Override
+    public void displaySetsScore(Pair pair) {
+        out.println("Player One : 0\n" +
+                    "Player Two : 0");
     }
 
     private boolean isThereADeuce(Pair score) {
