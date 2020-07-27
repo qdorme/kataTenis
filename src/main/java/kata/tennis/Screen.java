@@ -28,12 +28,12 @@ public class Screen implements DisplayUnit {
     }
 
     @Override
-    public void displaySetsScore(Pair pair, int player) {
+    public void displaySetsScore(Pair pair, Integer player) {
         out.println(String.format("Player One : %s\n" +
                                   "Player Two : %s",pair.getPlayer1(),pair.getPlayer2()));
-        if(player == PLAYER_ONE)
+        if(PLAYER_ONE.equals(player))
             out.println("Winner : Player One");
-        if(player == PLAYER_TWO)
+        if(PLAYER_TWO.equals(player))
             out.println("Winner : Player Two");
     }
 

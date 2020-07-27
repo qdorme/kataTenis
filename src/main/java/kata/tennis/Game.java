@@ -3,8 +3,8 @@ package kata.tennis;
 import java.util.Objects;
 
 public class Game {
-    public static final int PLAYER_ONE = 1;
-    public static final int PLAYER_TWO = 2;
+    public static final Integer PLAYER_ONE = 1;
+    public static final Integer PLAYER_TWO = 2;
 
     public static final String ZERO = "0";
     public static final String FIFTEEN = "15";
@@ -20,9 +20,9 @@ public class Game {
     private final DisplayUnit displayUnit;
     private Boolean isGameInDeuce = Boolean.FALSE;
     private Boolean isGameInTieBreak = Boolean.FALSE;
-    private int playerOneSets = 0;
-    private int playerTwoSets = 0;
-    private int setWinner;
+    private Integer playerOneSets = 0;
+    private Integer playerTwoSets = 0;
+    private Integer setWinner;
 
 
     public Game(DisplayUnit displayUnit){
@@ -35,8 +35,8 @@ public class Game {
                 .player2(playerTwoPoints).build();
     }
 
-    public void pointWonByPlayer(int player){
-        if (player == PLAYER_ONE) {
+    public void pointWonByPlayer(Integer player){
+        if (PLAYER_ONE.equals(player)) {
             playerOnePoints = updatePoint(playerOnePoints);
         }else{
             playerTwoPoints = updatePoint(playerTwoPoints);
@@ -67,8 +67,8 @@ public class Game {
         return playerOneSets == 6 && playerTwoSets == 6;
     }
 
-    private boolean hasPlayerWonSet(int player) {
-        if(player == PLAYER_ONE)
+    private boolean hasPlayerWonSet(Integer player) {
+        if(PLAYER_ONE.equals(player))
             return (playerOneSets == 6 && playerTwoSets <=4)
                    || (playerOneSets == 7 && !isGameInTieBreak)
                    || isGameInTieBreak && playerOneSets - playerTwoSets == 2;
@@ -78,8 +78,8 @@ public class Game {
                    || isGameInTieBreak && playerTwoSets - playerOneSets == 2;
     }
 
-    private void updateSet(int playerWhoWonPoint) {
-        if(PLAYER_ONE == playerWhoWonPoint)
+    private void updateSet(Integer playerWhoWonPoint) {
+        if(PLAYER_ONE.equals(playerWhoWonPoint))
             playerOneSets++;
         else
             playerTwoSets++;
@@ -96,28 +96,28 @@ public class Game {
         return WIN_GAME.equals(playerOnePoints) || WIN_GAME.equals(playerTwoPoints);
     }
 
-    private void theOtherBecomeDeuce(int playerWhoWonPoint) {
-        if(playerWhoWonPoint == PLAYER_ONE)
+    private void theOtherBecomeDeuce(Integer playerWhoWonPoint) {
+        if(PLAYER_ONE.equals(playerWhoWonPoint))
             playerTwoPoints = DEUCE;
         else
             playerOnePoints = DEUCE;
     }
 
-    private boolean oneOfPlayerLooseAdvantage(int playerWhoWonPoint) {
-        return playerWhoWonPoint == PLAYER_TWO && ADVANTAGE.equals(playerOnePoints)
-               || playerWhoWonPoint == PLAYER_ONE && ADVANTAGE.equals(playerTwoPoints);
+    private boolean oneOfPlayerLooseAdvantage(Integer playerWhoWonPoint) {
+        return PLAYER_TWO.equals(playerWhoWonPoint) && ADVANTAGE.equals(playerOnePoints)
+               || PLAYER_ONE.equals(playerWhoWonPoint) && ADVANTAGE.equals(playerTwoPoints);
     }
 
-    private void theOtherBecomeEmpty(int playerWhoWonPoint) {
-        if(playerWhoWonPoint == PLAYER_ONE)
+    private void theOtherBecomeEmpty(Integer playerWhoWonPoint) {
+        if(PLAYER_ONE.equals(playerWhoWonPoint))
             playerTwoPoints = EMPTY;
         else
             playerOnePoints = EMPTY;
     }
 
-    private boolean oneOfPlayerTakeAdvantage(int playerWhoWonPoint) {
-        return playerWhoWonPoint == PLAYER_ONE && ADVANTAGE.equals(playerOnePoints)
-               || playerWhoWonPoint == PLAYER_TWO && ADVANTAGE.equals(playerTwoPoints);
+    private boolean oneOfPlayerTakeAdvantage(Integer playerWhoWonPoint) {
+        return PLAYER_ONE.equals(playerWhoWonPoint) && ADVANTAGE.equals(playerOnePoints)
+               || PLAYER_TWO.equals(playerWhoWonPoint) && ADVANTAGE.equals(playerTwoPoints);
     }
 
     private boolean hasBothPlayerReachedForty() {
@@ -152,7 +152,7 @@ public class Game {
         return Pair.builder().player1(playerOneSets).player2(playerTwoSets).build();
     }
 
-    public int winnerOfSetIs() {
+    public Integer winnerOfSetIs() {
         return setWinner;
     }
 

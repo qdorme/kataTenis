@@ -1,9 +1,11 @@
 package kata.tennis;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.stream.IntStream;
@@ -26,11 +28,16 @@ class GameTest {
         game = new Game(displayUnit);
     }
 
-    private void playerWonPoints(Game game, int player, int times){
+    @AfterEach
+    void tearDown() {
+
+    }
+
+    private void playerWonPoints(Game game, Integer player, int times){
         IntStream.range(0,times).forEach(time -> game.pointWonByPlayer(player));
     }
 
-    private void playerWonSet(Game game, int player, int times){
+    private void playerWonSet(Game game, Integer player, int times){
         IntStream.range(0,times).forEach(time -> playerWonPoints(game,player,4));
     }
 
@@ -229,7 +236,7 @@ class GameTest {
     void shouldDisplayPlayersSetScores() {
         playerWonSet(game,PLAYER_TWO,6);
         game.displayPlayersSetScores();
-        verify(displayUnit).displaySetsScore(any(Pair.class),eq(PLAYER_TWO));
+        verify(displayUnit).displaySetsScore(any(Pair.class),any(Integer.class));
     }
 
     @Test
@@ -255,7 +262,7 @@ class GameTest {
         playerWonSet(game,PLAYER_ONE,2);
         playerWonSet(game,PLAYER_TWO,2);
         assertThat(game.isCurrentGameInTieBreak()).isTrue();
-        assertThat(game.winnerOfSetIs()).isZero();
+        assertThat(game.winnerOfSetIs()).isNull();
     }
 
     @Test
