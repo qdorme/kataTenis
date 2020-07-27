@@ -5,12 +5,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.stream.IntStream;
 
-import static kata.tennis.Game.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
@@ -45,119 +43,119 @@ class GameTest {
     void shouldReturnZeroPointsAtTheBeginning() {
         Pair score = game.currentGameScore();
         assertThat(score).isNotNull();
-        assertThat(score.getPlayer1()).isEqualTo(ZERO);
-        assertThat(score.getPlayer2()).isEqualTo(ZERO);
+        assertThat(score.getPlayer1()).isEqualTo(Constants.ZERO);
+        assertThat(score.getPlayer2()).isEqualTo(Constants.ZERO);
     }
 
     @Test
     void shouldReturnZeroFifteenPointsWhenPlayerTwoWinsFirstPoint() {
-        playerWonPoints(game,PLAYER_TWO,1);
+        playerWonPoints(game, Constants.PLAYER_TWO,1);
         Pair score = game.currentGameScore();
         assertThat(score).isNotNull();
-        assertThat(score.getPlayer1()).isEqualTo(ZERO);
-        assertThat(score.getPlayer2()).isEqualTo(FIFTEEN);
+        assertThat(score.getPlayer1()).isEqualTo(Constants.ZERO);
+        assertThat(score.getPlayer2()).isEqualTo(Constants.FIFTEEN);
     }
 
     @Test
     void shouldReturnFifteenZeroPointsWhenPlayerOneWinsFirstPoint() {
-        playerWonPoints(game,PLAYER_ONE,1);
+        playerWonPoints(game, Constants.PLAYER_ONE,1);
         Pair score = game.currentGameScore();
         assertThat(score).isNotNull();
-        assertThat(score.getPlayer1()).isEqualTo(FIFTEEN);
-        assertThat(score.getPlayer2()).isEqualTo(ZERO);
+        assertThat(score.getPlayer1()).isEqualTo(Constants.FIFTEEN);
+        assertThat(score.getPlayer2()).isEqualTo(Constants.ZERO);
     }
 
     @Test
     void shouldReturnZeroThirtyPointsWhenPlayerTwoWinsFirstTwoPoint() {
-        playerWonPoints(game,PLAYER_TWO,2);
+        playerWonPoints(game, Constants.PLAYER_TWO,2);
         Pair score = game.currentGameScore();
-        assertThat(score.getPlayer1()).isEqualTo(ZERO);
-        assertThat(score.getPlayer2()).isEqualTo(THIRTY);
+        assertThat(score.getPlayer1()).isEqualTo(Constants.ZERO);
+        assertThat(score.getPlayer2()).isEqualTo(Constants.THIRTY);
     }
 
     @Test
     void shouldReturnThirtyZeroPointsWhenPlayerOneWinsFirstTwoPoint() {
-        playerWonPoints(game,PLAYER_ONE,2);
+        playerWonPoints(game, Constants.PLAYER_ONE,2);
         Pair score = game.currentGameScore();
-        assertThat(score.getPlayer1()).isEqualTo(THIRTY);
-        assertThat(score.getPlayer2()).isEqualTo(ZERO);
+        assertThat(score.getPlayer1()).isEqualTo(Constants.THIRTY);
+        assertThat(score.getPlayer2()).isEqualTo(Constants.ZERO);
     }
 
     @Test
     void shouldReturnZeroFortyPointsWhenPlayerTwoWinsFirstThreePoint() {
-        playerWonPoints(game,PLAYER_TWO,3);
+        playerWonPoints(game, Constants.PLAYER_TWO,3);
         Pair score = game.currentGameScore();
-        assertThat(score.getPlayer1()).isEqualTo(ZERO);
-        assertThat(score.getPlayer2()).isEqualTo(FORTY);
+        assertThat(score.getPlayer1()).isEqualTo(Constants.ZERO);
+        assertThat(score.getPlayer2()).isEqualTo(Constants.FORTY);
     }
 
     @Test
     void shouldReturnFortyZeroPointsWhenPlayerOneWinsFirstThreePoint() {
-        playerWonPoints(game,PLAYER_ONE,3);
+        playerWonPoints(game, Constants.PLAYER_ONE,3);
         Pair score = game.currentGameScore();
-        assertThat(score.getPlayer1()).isEqualTo(FORTY);
-        assertThat(score.getPlayer2()).isEqualTo(ZERO);
+        assertThat(score.getPlayer1()).isEqualTo(Constants.FORTY);
+        assertThat(score.getPlayer2()).isEqualTo(Constants.ZERO);
     }
 
     @Test
     void shouldDisplayPlayersScores() {
-        playerWonPoints(game,PLAYER_TWO,3);
+        playerWonPoints(game, Constants.PLAYER_TWO,3);
         game.displayPlayersScores();
         verify(displayUnit).displayGameScore(any(Pair.class));
     }
 
     @Test
     void shouldActivateDeuceRuleIfBothPlayersReach40Points() {
-        playerWonPoints(game,PLAYER_ONE,3);
-        playerWonPoints(game,PLAYER_TWO,3);
+        playerWonPoints(game, Constants.PLAYER_ONE,3);
+        playerWonPoints(game, Constants.PLAYER_TWO,3);
         Pair score = game.currentGameScore();
         assertThat(game.isCurrentGameInDeuce()).isTrue();
-        assertThat(score.getPlayer1()).isEqualTo(DEUCE);
-        assertThat(score.getPlayer2()).isEqualTo(DEUCE);
+        assertThat(score.getPlayer1()).isEqualTo(Constants.DEUCE);
+        assertThat(score.getPlayer2()).isEqualTo(Constants.DEUCE);
     }
 
     @Test
     void shouldReturnAdvantageToPlayerOneIfHeWinPointWhileDeuce() {
-        playerWonPoints(game,PLAYER_ONE,3);
-        playerWonPoints(game,PLAYER_TWO,3);
-        playerWonPoints(game,PLAYER_ONE,1);
+        playerWonPoints(game, Constants.PLAYER_ONE,3);
+        playerWonPoints(game, Constants.PLAYER_TWO,3);
+        playerWonPoints(game, Constants.PLAYER_ONE,1);
         Pair score = game.currentGameScore();
         assertThat(game.isCurrentGameInDeuce()).isTrue();
-        assertThat(score.getPlayer1()).isEqualTo(ADVANTAGE);
-        assertThat(score.getPlayer2()).isEqualTo(EMPTY);
+        assertThat(score.getPlayer1()).isEqualTo(Constants.ADVANTAGE);
+        assertThat(score.getPlayer2()).isEqualTo(Constants.EMPTY);
     }
 
     @Test
     void shouldReturnAdvantageToPlayerTwoIfHeWinPointWhileDeuce() {
-        playerWonPoints(game,PLAYER_ONE,3);
-        playerWonPoints(game,PLAYER_TWO,4);
+        playerWonPoints(game, Constants.PLAYER_ONE,3);
+        playerWonPoints(game, Constants.PLAYER_TWO,4);
         Pair score = game.currentGameScore();
         assertThat(game.isCurrentGameInDeuce()).isTrue();
-        assertThat(score.getPlayer1()).isEqualTo(EMPTY);
-        assertThat(score.getPlayer2()).isEqualTo(ADVANTAGE);
+        assertThat(score.getPlayer1()).isEqualTo(Constants.EMPTY);
+        assertThat(score.getPlayer2()).isEqualTo(Constants.ADVANTAGE);
     }
 
     @Test
     void shouldReturnDeuceWhenPlayerOneLooseAdvantage() {
-        playerWonPoints(game,PLAYER_ONE,3);
-        playerWonPoints(game,PLAYER_TWO,3);
-        playerWonPoints(game,PLAYER_ONE,1);
-        playerWonPoints(game,PLAYER_TWO,1);
+        playerWonPoints(game, Constants.PLAYER_ONE,3);
+        playerWonPoints(game, Constants.PLAYER_TWO,3);
+        playerWonPoints(game, Constants.PLAYER_ONE,1);
+        playerWonPoints(game, Constants.PLAYER_TWO,1);
         Pair score = game.currentGameScore();
         assertThat(game.isCurrentGameInDeuce()).isTrue();
-        assertThat(score.getPlayer1()).isEqualTo(DEUCE);
-        assertThat(score.getPlayer2()).isEqualTo(DEUCE);
+        assertThat(score.getPlayer1()).isEqualTo(Constants.DEUCE);
+        assertThat(score.getPlayer2()).isEqualTo(Constants.DEUCE);
     }
 
     @Test
     void shouldReturnDeuceWhenPlayerTwoLooseAdvantage() {
-        playerWonPoints(game,PLAYER_ONE,3);
-        playerWonPoints(game,PLAYER_TWO,4);
-        playerWonPoints(game,PLAYER_ONE,1);
+        playerWonPoints(game, Constants.PLAYER_ONE,3);
+        playerWonPoints(game, Constants.PLAYER_TWO,4);
+        playerWonPoints(game, Constants.PLAYER_ONE,1);
         Pair score = game.currentGameScore();
         assertThat(game.isCurrentGameInDeuce()).isTrue();
-        assertThat(score.getPlayer1()).isEqualTo(DEUCE);
-        assertThat(score.getPlayer2()).isEqualTo(DEUCE);
+        assertThat(score.getPlayer1()).isEqualTo(Constants.DEUCE);
+        assertThat(score.getPlayer2()).isEqualTo(Constants.DEUCE);
     }
 
     @Test
@@ -170,7 +168,7 @@ class GameTest {
 
     @Test
     void shouldReturnOneZeroIfPlayerOneWinFirstSetScore() {
-        playerWonPoints(game,PLAYER_ONE,4);
+        playerWonPoints(game, Constants.PLAYER_ONE,4);
         Pair currentSetScore = game.currentSetScore();
         assertThat(currentSetScore).isNotNull();
         assertThat(currentSetScore.getPlayer1()).isEqualTo(1);
@@ -179,8 +177,8 @@ class GameTest {
 
     @Test
     void ShouldReturnOneOneIfBothPlayerWinASet() {
-        playerWonSet(game,PLAYER_ONE,1);
-        playerWonSet(game,PLAYER_TWO,1);
+        playerWonSet(game, Constants.PLAYER_ONE,1);
+        playerWonSet(game, Constants.PLAYER_TWO,1);
         Pair currentSetScore = game.currentSetScore();
         assertThat(currentSetScore).isNotNull();
         assertThat(currentSetScore.getPlayer1()).isEqualTo(1);
@@ -189,102 +187,102 @@ class GameTest {
 
     @Test
     void ShouldReturnPlayerTwoAsSetWinnerIfHeReachSixSetWhilePlayerTwoIsUnderFive() {
-        playerWonSet(game,PLAYER_ONE,4);
-        playerWonSet(game,PLAYER_TWO,6);
+        playerWonSet(game, Constants.PLAYER_ONE,4);
+        playerWonSet(game, Constants.PLAYER_TWO,6);
         Pair currentSetScore = game.currentSetScore();
         assertThat(currentSetScore).isNotNull();
         assertThat(currentSetScore.getPlayer1()).isEqualTo(4);
         assertThat(currentSetScore.getPlayer2()).isEqualTo(6);
-        assertThat(game.winnerOfSetIs()).isEqualTo(PLAYER_TWO);
+        assertThat(game.winnerOfSetIs()).isEqualTo(Constants.PLAYER_TWO);
     }
 
     @Test
     void ShouldReturnPlayerOneAsSetWinnerIfHeReachSixSetWhilePlayerTwoIsUnderFive() {
-        playerWonSet(game,PLAYER_TWO,4);
-        playerWonSet(game,PLAYER_ONE,6);
+        playerWonSet(game, Constants.PLAYER_TWO,4);
+        playerWonSet(game, Constants.PLAYER_ONE,6);
         Pair currentSetScore = game.currentSetScore();
         assertThat(currentSetScore).isNotNull();
         assertThat(currentSetScore.getPlayer1()).isEqualTo(6);
         assertThat(currentSetScore.getPlayer2()).isEqualTo(4);
-        assertThat(game.winnerOfSetIs()).isEqualTo(PLAYER_ONE);
+        assertThat(game.winnerOfSetIs()).isEqualTo(Constants.PLAYER_ONE);
     }
 
     @Test
     void ShouldReturnPlayerOneAsSetWinnerAfterReachingSevenSet() {
-        playerWonSet(game,PLAYER_ONE,5);
-        playerWonSet(game,PLAYER_TWO,5);
-        playerWonSet(game,PLAYER_ONE,2);
+        playerWonSet(game, Constants.PLAYER_ONE,5);
+        playerWonSet(game, Constants.PLAYER_TWO,5);
+        playerWonSet(game, Constants.PLAYER_ONE,2);
         Pair currentSetScore = game.currentSetScore();
         assertThat(currentSetScore).isNotNull();
         assertThat(currentSetScore.getPlayer1()).isEqualTo(7);
         assertThat(currentSetScore.getPlayer2()).isEqualTo(5);
-        assertThat(game.winnerOfSetIs()).isEqualTo(PLAYER_ONE);
+        assertThat(game.winnerOfSetIs()).isEqualTo(Constants.PLAYER_ONE);
     }
 
     @Test
     void ShouldReturnPlayerTwoAsSetWinnerAfterReachingSevenSet() {
-        playerWonSet(game,PLAYER_ONE,5);
-        playerWonSet(game,PLAYER_TWO,7);
+        playerWonSet(game, Constants.PLAYER_ONE,5);
+        playerWonSet(game, Constants.PLAYER_TWO,7);
         Pair currentSetScore = game.currentSetScore();
         assertThat(currentSetScore).isNotNull();
         assertThat(currentSetScore.getPlayer1()).isEqualTo(5);
         assertThat(currentSetScore.getPlayer2()).isEqualTo(7);
-        assertThat(game.winnerOfSetIs()).isEqualTo(PLAYER_TWO);
+        assertThat(game.winnerOfSetIs()).isEqualTo(Constants.PLAYER_TWO);
     }
 
     @Test
     void shouldDisplayPlayersSetScores() {
-        playerWonSet(game,PLAYER_TWO,6);
+        playerWonSet(game, Constants.PLAYER_TWO,6);
         game.displayPlayersSetScores();
         verify(displayUnit).displaySetsScore(any(Pair.class),any(Integer.class));
     }
 
     @Test
     void shouldNotActivateTieBreakRuleIfEachPlayerScoreSixSet() {
-        playerWonSet(game,PLAYER_ONE,4);
-        playerWonSet(game,PLAYER_TWO,5);
+        playerWonSet(game, Constants.PLAYER_ONE,4);
+        playerWonSet(game, Constants.PLAYER_TWO,5);
         assertThat(game.isCurrentGameInTieBreak()).isFalse();
     }
 
     @Test
     void shouldActivateTieBreakRuleIfEachPlayerScoreSixSet() {
-        playerWonSet(game,PLAYER_ONE,4);
-        playerWonSet(game,PLAYER_TWO,5);
-        playerWonSet(game,PLAYER_ONE,2);
-        playerWonSet(game,PLAYER_TWO,1);
+        playerWonSet(game, Constants.PLAYER_ONE,4);
+        playerWonSet(game, Constants.PLAYER_TWO,5);
+        playerWonSet(game, Constants.PLAYER_ONE,2);
+        playerWonSet(game, Constants.PLAYER_TWO,1);
         assertThat(game.isCurrentGameInTieBreak()).isTrue();
     }
 
     @Test
     void shouldNotHaveAWinnerIfTieBreakActivatedAndOnePlayerReachSevenSet() {
-        playerWonSet(game,PLAYER_ONE,4);
-        playerWonSet(game,PLAYER_TWO,5);
-        playerWonSet(game,PLAYER_ONE,2);
-        playerWonSet(game,PLAYER_TWO,2);
+        playerWonSet(game, Constants.PLAYER_ONE,4);
+        playerWonSet(game, Constants.PLAYER_TWO,5);
+        playerWonSet(game, Constants.PLAYER_ONE,2);
+        playerWonSet(game, Constants.PLAYER_TWO,2);
         assertThat(game.isCurrentGameInTieBreak()).isTrue();
         assertThat(game.winnerOfSetIs()).isNull();
     }
 
     @Test
     void ShouldHavePlayerOneAsWinnerIfTieBreakIsActiveAndTwoSetMoreThanPlayerTwo() {
-        playerWonSet(game,PLAYER_ONE,4);
-        playerWonSet(game,PLAYER_TWO,5);
-        playerWonSet(game,PLAYER_ONE,2);
-        playerWonSet(game,PLAYER_TWO,2);
-        playerWonSet(game,PLAYER_ONE,3);
+        playerWonSet(game, Constants.PLAYER_ONE,4);
+        playerWonSet(game, Constants.PLAYER_TWO,5);
+        playerWonSet(game, Constants.PLAYER_ONE,2);
+        playerWonSet(game, Constants.PLAYER_TWO,2);
+        playerWonSet(game, Constants.PLAYER_ONE,3);
         assertThat(game.isCurrentGameInTieBreak()).isTrue();
-        assertThat(game.winnerOfSetIs()).isEqualTo(PLAYER_ONE);
+        assertThat(game.winnerOfSetIs()).isEqualTo(Constants.PLAYER_ONE);
     }
 
     @Test
     void ShouldHavePlayerTwoAsWinnerIfTieBreakIsActiveAndTwoSetMoreThanPlayerOne() {
-        playerWonSet(game,PLAYER_ONE,4);
-        playerWonSet(game,PLAYER_TWO,5);
-        playerWonSet(game,PLAYER_ONE,2);
-        playerWonSet(game,PLAYER_TWO,2);
-        playerWonSet(game,PLAYER_ONE,1);
-        playerWonSet(game,PLAYER_TWO,2);
+        playerWonSet(game, Constants.PLAYER_ONE,4);
+        playerWonSet(game, Constants.PLAYER_TWO,5);
+        playerWonSet(game, Constants.PLAYER_ONE,2);
+        playerWonSet(game, Constants.PLAYER_TWO,2);
+        playerWonSet(game, Constants.PLAYER_ONE,1);
+        playerWonSet(game, Constants.PLAYER_TWO,2);
         assertThat(game.isCurrentGameInTieBreak()).isTrue();
-        assertThat(game.winnerOfSetIs()).isEqualTo(PLAYER_TWO);
+        assertThat(game.winnerOfSetIs()).isEqualTo(Constants.PLAYER_TWO);
     }
 }

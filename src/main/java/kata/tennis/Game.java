@@ -3,20 +3,9 @@ package kata.tennis;
 import java.util.Objects;
 
 public class Game {
-    public static final Integer PLAYER_ONE = 1;
-    public static final Integer PLAYER_TWO = 2;
 
-    public static final String ZERO = "0";
-    public static final String FIFTEEN = "15";
-    public static final String THIRTY = "30";
-    public static final String FORTY = "40";
-    public static final String WIN_GAME = "Win game";
-    public static final String DEUCE = "DEUCE";
-    public static final String ADVANTAGE = "ADVANTAGE";
-    public static final String EMPTY = "";
-
-    private String playerOnePoints = ZERO;
-    private String playerTwoPoints = ZERO;
+    private String playerOnePoints = Constants.ZERO;
+    private String playerTwoPoints = Constants.ZERO;
     private final DisplayUnit displayUnit;
     private Boolean isGameInDeuce = Boolean.FALSE;
     private Boolean isGameInTieBreak = Boolean.FALSE;
@@ -36,21 +25,21 @@ public class Game {
     }
 
     public void pointWonByPlayer(Integer player){
-        if (PLAYER_ONE.equals(player)) {
+        if (Constants.PLAYER_ONE.equals(player)) {
             playerOnePoints = updatePoint(playerOnePoints);
         }else{
             playerTwoPoints = updatePoint(playerTwoPoints);
         }
         if(hasBothPlayerReachedForty()){
             isGameInDeuce = Boolean.TRUE;
-            playerOnePoints = DEUCE;
-            playerTwoPoints = DEUCE;
+            playerOnePoints = Constants.DEUCE;
+            playerTwoPoints = Constants.DEUCE;
         }
         if(oneOfPlayerTakeAdvantage(player)){
-            theOtherBecomeEmpty(player);
+            theOtherBecome(player, Constants.EMPTY);
         }
         if(oneOfPlayerLooseAdvantage(player)){
-            theOtherBecomeDeuce(player);
+            theOtherBecome(player, Constants.DEUCE);
         }
         if(oneOfPlayerWinGame()){
             updateSet(player);
@@ -68,7 +57,7 @@ public class Game {
     }
 
     private boolean hasPlayerWonSet(Integer player) {
-        if(PLAYER_ONE.equals(player))
+        if(Constants.PLAYER_ONE.equals(player))
             return (playerOneSets == 6 && playerTwoSets <=4)
                    || (playerOneSets == 7 && !isGameInTieBreak)
                    || isGameInTieBreak && playerOneSets - playerTwoSets == 2;
@@ -79,7 +68,7 @@ public class Game {
     }
 
     private void updateSet(Integer playerWhoWonPoint) {
-        if(PLAYER_ONE.equals(playerWhoWonPoint))
+        if(Constants.PLAYER_ONE.equals(playerWhoWonPoint))
             playerOneSets++;
         else
             playerTwoSets++;
@@ -87,56 +76,49 @@ public class Game {
     }
 
     private void resetBothPlayersPoints() {
-        playerOnePoints=ZERO;
-        playerTwoPoints=ZERO;
+        playerOnePoints= Constants.ZERO;
+        playerTwoPoints= Constants.ZERO;
         isGameInDeuce=Boolean.FALSE;
     }
 
     private boolean oneOfPlayerWinGame() {
-        return WIN_GAME.equals(playerOnePoints) || WIN_GAME.equals(playerTwoPoints);
+        return Constants.WIN_GAME.equals(playerOnePoints) || Constants.WIN_GAME.equals(playerTwoPoints);
     }
 
-    private void theOtherBecomeDeuce(Integer playerWhoWonPoint) {
-        if(PLAYER_ONE.equals(playerWhoWonPoint))
-            playerTwoPoints = DEUCE;
+    private void theOtherBecome(Integer playerWhoWonPoint, String newScore) {
+        if(Constants.PLAYER_ONE.equals(playerWhoWonPoint))
+            playerTwoPoints = newScore;
         else
-            playerOnePoints = DEUCE;
+            playerOnePoints = newScore;
     }
 
     private boolean oneOfPlayerLooseAdvantage(Integer playerWhoWonPoint) {
-        return PLAYER_TWO.equals(playerWhoWonPoint) && ADVANTAGE.equals(playerOnePoints)
-               || PLAYER_ONE.equals(playerWhoWonPoint) && ADVANTAGE.equals(playerTwoPoints);
-    }
-
-    private void theOtherBecomeEmpty(Integer playerWhoWonPoint) {
-        if(PLAYER_ONE.equals(playerWhoWonPoint))
-            playerTwoPoints = EMPTY;
-        else
-            playerOnePoints = EMPTY;
+        return Constants.PLAYER_TWO.equals(playerWhoWonPoint) && Constants.ADVANTAGE.equals(playerOnePoints)
+               || Constants.PLAYER_ONE.equals(playerWhoWonPoint) && Constants.ADVANTAGE.equals(playerTwoPoints);
     }
 
     private boolean oneOfPlayerTakeAdvantage(Integer playerWhoWonPoint) {
-        return PLAYER_ONE.equals(playerWhoWonPoint) && ADVANTAGE.equals(playerOnePoints)
-               || PLAYER_TWO.equals(playerWhoWonPoint) && ADVANTAGE.equals(playerTwoPoints);
+        return Constants.PLAYER_ONE.equals(playerWhoWonPoint) && Constants.ADVANTAGE.equals(playerOnePoints)
+               || Constants.PLAYER_TWO.equals(playerWhoWonPoint) && Constants.ADVANTAGE.equals(playerTwoPoints);
     }
 
     private boolean hasBothPlayerReachedForty() {
-        return FORTY.equals(playerOnePoints) && FORTY.equals(playerTwoPoints);
+        return Constants.FORTY.equals(playerOnePoints) && Constants.FORTY.equals(playerTwoPoints);
     }
 
     private String updatePoint(String pointToUpdate){
-        if(EMPTY.equals(pointToUpdate))
-            return DEUCE;
-        if(DEUCE.equals(pointToUpdate))
-            return ADVANTAGE;
-        if(FORTY.equals(pointToUpdate) || ADVANTAGE.equals(pointToUpdate))
-            return WIN_GAME;
-        if(THIRTY.equals(pointToUpdate))
-            return FORTY;
-        if(FIFTEEN.equals(pointToUpdate))
-            return THIRTY;
+        if(Constants.EMPTY.equals(pointToUpdate))
+            return Constants.DEUCE;
+        if(Constants.DEUCE.equals(pointToUpdate))
+            return Constants.ADVANTAGE;
+        if(Constants.FORTY.equals(pointToUpdate) || Constants.ADVANTAGE.equals(pointToUpdate))
+            return Constants.WIN_GAME;
+        if(Constants.THIRTY.equals(pointToUpdate))
+            return Constants.FORTY;
+        if(Constants.FIFTEEN.equals(pointToUpdate))
+            return Constants.THIRTY;
         else
-            return FIFTEEN;
+            return Constants.FIFTEEN;
     }
 
     public void displayPlayersScores(){
