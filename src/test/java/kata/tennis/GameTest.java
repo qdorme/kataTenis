@@ -109,7 +109,7 @@ class GameTest {
         playerWonPoints(game, Constants.PLAYER_ONE,3);
         playerWonPoints(game, Constants.PLAYER_TWO,3);
         Pair score = game.currentGameScore();
-        assertThat(game.isCurrentGameInDeuce()).isTrue();
+        assertThat(game.isGameInDeuce()).isTrue();
         assertThat(score.getPlayer1()).isEqualTo(Constants.DEUCE);
         assertThat(score.getPlayer2()).isEqualTo(Constants.DEUCE);
     }
@@ -120,7 +120,7 @@ class GameTest {
         playerWonPoints(game, Constants.PLAYER_TWO,3);
         playerWonPoints(game, Constants.PLAYER_ONE,1);
         Pair score = game.currentGameScore();
-        assertThat(game.isCurrentGameInDeuce()).isTrue();
+        assertThat(game.isGameInDeuce()).isTrue();
         assertThat(score.getPlayer1()).isEqualTo(Constants.ADVANTAGE);
         assertThat(score.getPlayer2()).isEqualTo(Constants.EMPTY);
     }
@@ -130,7 +130,7 @@ class GameTest {
         playerWonPoints(game, Constants.PLAYER_ONE,3);
         playerWonPoints(game, Constants.PLAYER_TWO,4);
         Pair score = game.currentGameScore();
-        assertThat(game.isCurrentGameInDeuce()).isTrue();
+        assertThat(game.isGameInDeuce()).isTrue();
         assertThat(score.getPlayer1()).isEqualTo(Constants.EMPTY);
         assertThat(score.getPlayer2()).isEqualTo(Constants.ADVANTAGE);
     }
@@ -142,7 +142,7 @@ class GameTest {
         playerWonPoints(game, Constants.PLAYER_ONE,1);
         playerWonPoints(game, Constants.PLAYER_TWO,1);
         Pair score = game.currentGameScore();
-        assertThat(game.isCurrentGameInDeuce()).isTrue();
+        assertThat(game.isGameInDeuce()).isTrue();
         assertThat(score.getPlayer1()).isEqualTo(Constants.DEUCE);
         assertThat(score.getPlayer2()).isEqualTo(Constants.DEUCE);
     }
@@ -153,7 +153,7 @@ class GameTest {
         playerWonPoints(game, Constants.PLAYER_TWO,4);
         playerWonPoints(game, Constants.PLAYER_ONE,1);
         Pair score = game.currentGameScore();
-        assertThat(game.isCurrentGameInDeuce()).isTrue();
+        assertThat(game.isGameInDeuce()).isTrue();
         assertThat(score.getPlayer1()).isEqualTo(Constants.DEUCE);
         assertThat(score.getPlayer2()).isEqualTo(Constants.DEUCE);
     }
@@ -241,7 +241,7 @@ class GameTest {
     void shouldNotActivateTieBreakRuleIfEachPlayerScoreSixSet() {
         playerWonSet(game, Constants.PLAYER_ONE,4);
         playerWonSet(game, Constants.PLAYER_TWO,5);
-        assertThat(game.isCurrentGameInTieBreak()).isFalse();
+        assertThat(game.isGameInTieBreak()).isFalse();
     }
 
     @Test
@@ -250,7 +250,7 @@ class GameTest {
         playerWonSet(game, Constants.PLAYER_TWO,5);
         playerWonSet(game, Constants.PLAYER_ONE,2);
         playerWonSet(game, Constants.PLAYER_TWO,1);
-        assertThat(game.isCurrentGameInTieBreak()).isTrue();
+        assertThat(game.isGameInTieBreak()).isTrue();
     }
 
     @Test
@@ -259,7 +259,7 @@ class GameTest {
         playerWonSet(game, Constants.PLAYER_TWO,5);
         playerWonSet(game, Constants.PLAYER_ONE,2);
         playerWonSet(game, Constants.PLAYER_TWO,2);
-        assertThat(game.isCurrentGameInTieBreak()).isTrue();
+        assertThat(game.isGameInTieBreak()).isTrue();
         assertThat(game.winnerOfSetIs()).isNull();
     }
 
@@ -270,7 +270,7 @@ class GameTest {
         playerWonSet(game, Constants.PLAYER_ONE,2);
         playerWonSet(game, Constants.PLAYER_TWO,2);
         playerWonSet(game, Constants.PLAYER_ONE,3);
-        assertThat(game.isCurrentGameInTieBreak()).isTrue();
+        assertThat(game.isGameInTieBreak()).isTrue();
         assertThat(game.winnerOfSetIs()).isEqualTo(Constants.PLAYER_ONE);
     }
 
@@ -282,7 +282,7 @@ class GameTest {
         playerWonSet(game, Constants.PLAYER_TWO,2);
         playerWonSet(game, Constants.PLAYER_ONE,1);
         playerWonSet(game, Constants.PLAYER_TWO,2);
-        assertThat(game.isCurrentGameInTieBreak()).isTrue();
+        assertThat(game.isGameInTieBreak()).isTrue();
         assertThat(game.winnerOfSetIs()).isEqualTo(Constants.PLAYER_TWO);
     }
 }

@@ -126,7 +126,7 @@ public class Game {
             displayUnit.displayGameScore(Pair.builder().player1(playerOnePoints).player2(playerTwoPoints).build());
     }
 
-    public boolean isCurrentGameInDeuce() {
+    public boolean isGameInDeuce() {
         return isGameInDeuce;
     }
 
@@ -143,7 +143,7 @@ public class Game {
             displayUnit.displaySetsScore(Pair.builder().player1(playerOneSets).player2(playerTwoSets).build(),setWinner);
     }
 
-    public boolean isCurrentGameInTieBreak() {
+    public boolean isGameInTieBreak() {
         return isGameInTieBreak;
     }
 }
